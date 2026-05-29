@@ -13,9 +13,13 @@ def add_task(title, description, due_date):
         print(description)
         return
     
-    valid, due_date = validate_due_date(due_date)
-    if not valid:
-        print(due_date)
+    try:
+        valid, due_date = validate_due_date(due_date)
+        if not valid:
+            print(due_date)
+            return
+    except ValueError as e:
+        print(e)
         return
     
     task = {
@@ -57,7 +61,7 @@ def view_pending_tasks(tasks=tasks):
 
 def calculate_progress(tasks=tasks):
     if len(tasks) == 0:
-        print("No tasks available. Progress: 0%")
+        print(0.0)
         return 0
     
     completed = 0
@@ -66,5 +70,5 @@ def calculate_progress(tasks=tasks):
             completed += 1
     
     progress = (completed / len(tasks)) * 100
-    print(f"Progress: {progress:.1f}% ({completed}/{len(tasks)} tasks completed)")
+    print(progress)
     return progress

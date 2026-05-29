@@ -8,6 +8,8 @@ def validate_task_title(title):
 def validate_task_description(description):
     if len(description.strip()) == 0:
         return False, "Description cannot be empty."
+    if len(description) > 500:
+        return False, "Description cannot exceed 500 characters."
     return True, description.strip()
     
 def validate_due_date(due_date):
@@ -15,4 +17,4 @@ def validate_due_date(due_date):
         datetime.strptime(due_date, "%Y-%m-%d")
         return True, due_date
     except ValueError:
-        return False, "Invalid date format. Please use YYYY-MM-DD."
+        raise ValueError("Invalid date format. Please use YYYY-MM-DD.")
