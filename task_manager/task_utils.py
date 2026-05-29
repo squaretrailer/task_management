@@ -3,18 +3,18 @@ from task_manager.validation import validate_task_title, validate_task_descripti
 tasks = []
 
 def add_task(title, description, due_date):
-    is_valid, title = validate_task_title(title)
-    if not is_valid:
+    valid, title = validate_task_title(title)
+    if not valid:
         print(title)
         return
     
-    is_valid, description = validate_task_description(description)
-    if not is_valid:
+    valid, description = validate_task_description(description)
+    if not valid:
         print(description)
         return
     
-    is_valid, due_date = validate_due_date(due_date)
-    if not is_valid:
+    valid, due_date = validate_due_date(due_date)
+    if not valid:
         print(due_date)
         return
     
@@ -28,7 +28,7 @@ def add_task(title, description, due_date):
     print("Task added successfully!")
     
 def mark_task_as_complete(index, tasks=tasks):
-    if not tasks:
+    if len(tasks) == 0:
         print("No tasks available.")
         return
     
@@ -46,7 +46,7 @@ def mark_task_as_complete(index, tasks=tasks):
 def view_pending_tasks(tasks=tasks):
     pending = [task for task in tasks if not task["completed"]]
     
-    if not pending:
+    if len(pending) == 0:
         print("No pending tasks.")
         return
     
@@ -56,11 +56,15 @@ def view_pending_tasks(tasks=tasks):
         print(f"{original_index + 1}. Title: {task['title']}, Due: {task['due_date']}")
 
 def calculate_progress(tasks=tasks):
-    if not tasks:
+    if len(tasks) == 0:
         print("No tasks available. Progress: 0%")
         return 0
     
-    completed = sum(1 for task in tasks if task["completed"])
+    completed = 0
+    for task in tasks:
+        if task["completed"]:
+            completed += 1
+    
     progress = (completed / len(tasks)) * 100
     print(f"Progress: {progress:.1f}% ({completed}/{len(tasks)} tasks completed)")
     return progress

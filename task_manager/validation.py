@@ -1,12 +1,12 @@
 from datetime import datetime
 
 def validate_task_title(title):
-    if not title or not title.strip():
+    if len(title.strip()) == 0:
         return False, "Title cannot be empty."
     return True, title.strip()
     
 def validate_task_description(description):
-    if not description or not description.strip():
+    if len(description.strip()) == 0:
         return False, "Description cannot be empty."
     return True, description.strip()
     

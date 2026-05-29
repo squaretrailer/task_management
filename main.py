@@ -17,7 +17,7 @@ def main():
             add_task(title, description, due_date)
         
         elif choice == "2":
-            if not tasks:
+            if len(tasks) == 0:
                 print("No tasks available to mark as complete.")
             else:
                 view_pending_tasks()
