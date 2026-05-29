@@ -59,22 +59,16 @@ def view_pending_tasks():
         original_index = tasks.index(task)
         print(f"{original_index + 1}. Title: {task['title']}, Due: {task['due_date']}")
 
-def calculate_progress(tasks_list=None):
-    # Use the passed list if provided, otherwise use the module-level tasks
-    if tasks_list is not None:
-        task_list_to_use = tasks_list
-    else:
-        task_list_to_use = tasks
-    
-    if len(task_list_to_use) == 0:
+def calculate_progress(tasks_list):
+    if len(tasks_list) == 0:
         print(0.0)
         return 0
     
     completed = 0
-    for task in task_list_to_use:
+    for task in tasks_list:
         if task["completed"]:
             completed += 1
     
-    progress = (completed / len(task_list_to_use)) * 100
+    progress = (completed / len(tasks_list)) * 100
     print(progress)
     return progress
